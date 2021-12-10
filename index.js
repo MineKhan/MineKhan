@@ -116,6 +116,10 @@ router.get("/server/map/*", async function(req,res){
   res.json(map)
 })
 
+router.get("/play",function(req,res){
+  res.redirect("https://minekhan.thingmaker.repl.co")
+})
+
 app.use(router)
 
 //404
