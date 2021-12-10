@@ -24,7 +24,7 @@
 
 <div class="row">
   <div class="leftcolumn">
-    <div class="card" id="map">Loading map...</div>
+    <div class="card" id="map">Loading map... <div class="loader"></div></div>
   </div>
     <div class="follow">
       <h3>Follow Us</h3>
@@ -50,9 +50,30 @@
       if(map.description) html += "<p>"+map.description+"</p>"
       html += "Code: <input value='"+map.code+"'>"
       html += "</div>"
-    }else html = "Map not found"
+    }else location.href = "/maps/map/ /";
     document.querySelector("#map").innerHTML = html
   })
 </script>
 </body>
 </html>
+
+
+
+<style>
+  
+.loader {
+  border: 5px solid white; /* Light grey */
+  border-top: 5px solid gray; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+  margin-top:-22px ;
+  margin-left:150px ;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>

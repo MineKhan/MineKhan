@@ -75,7 +75,10 @@
   .box input[type="button"]:hover{
     background-color: #3067b9;
   }
-
+  .box input[type="button"][disabled]{
+    background:#888;
+    cursor:not-allowed;
+  }
   </style>
   <title>Upload a map</title>
 </head>
@@ -103,7 +106,7 @@
       <input type="text" name="code" autocomplete="off" id="code" required>
       <label for="code">World code</label>
     </div>
-    <center><input type="button" value="Save" onclick="save()"></center>
+    <center><input type="button" value="Save" onclick="var me = this; this.value = 'Saving...'; this.disabled = true; save(function(){me.value = 'Save'; me.disabled = false})"></center>
     <br>
     <span id="message"></span>
     <br>
@@ -117,7 +120,7 @@
     var mapName = document.querySelector("#name")
     var description = document.querySelector("#description")
     var code = document.querySelector("#code")
-    function save(){
+    function save(onfail){
       var body = JSON.stringify({
         name:mapName.value,
         user:user.value,
@@ -134,6 +137,7 @@
           location.href = "/maps/map/index.html?map="+mapName.value
         }else{
           msg.innerHTML = r.message
+          onfail()
         }
       })
     }

@@ -26,7 +26,7 @@
 <div class="row">
   <div class="leftcolumn" id="maps">
     <div class="card">
-      Loading the maps..
+   Loading the maps.. <div class="loader"></div>
     </div>
   </div>
    
@@ -43,7 +43,7 @@
     for(var i in maps){
       html += "<div class='card'>"
       html += "<a href='/maps/map/index.html?map="+maps[i].name+"'><h2>Map: "+maps[i].name+"</h2></a>"
-      if(maps[i].user) html += "By "+maps[i].user
+      if(maps[i].user) html += "By: "+maps[i].user
       if(maps[i].description) html += "<p>"+maps[i].description+"</p>"
       html += "</div>"
     }

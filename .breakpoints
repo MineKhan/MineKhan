@@ -1,3 +1,20 @@
 {
-  "files": {}
+  "files": {
+    "public/index.html": [
+      {
+        "id": "cfddc825-a0d1-4e94-b679-8aa0678fd4c7",
+        "line": 81,
+        "version": 860,
+        "index": 2552
+      }
+    ],
+    "public/maps/map/ /index.html": [
+      {
+        "id": "60f838da-7fd9-46c1-894a-9224e09b67bf",
+        "line": 137,
+        "version": 40,
+        "index": 6100
+      }
+    ]
+  }
 }
