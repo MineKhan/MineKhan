@@ -37,25 +37,26 @@ border-radius: 2px;
 
 .nick{
   text-align: center ;
-  margin-top: -40px;
+  margin-top: -37px;
 }
 .desc{
   text-align:center ;
-  background: gray;
+  background: cornflowerblue;
   border-radius: 20px;
   width: 40%;
 }
 
 
 
-.desc {
+
+
+
+.name {
     -webkit-animation: bgcolor 20s infinite;
-    animation: bgcolor 10s infinite;
+    animation: bgcolor 20s infinite;
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
 }
-
-
 
 @keyframes bgcolor {
     0% {
