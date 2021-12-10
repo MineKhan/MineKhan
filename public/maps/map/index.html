@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MineKhan&nbsp|&nbspMaps</title>
+     <link rel="shortcut icon" href="/play/favicon.ico">
+    <link href="/maps/style.css" rel="stylesheet" type="text/css" />
+  </head>
+<body>
+
+<div class="header">
+  <h1><img src="https://data.thingmaker.repl.co/images/minekhan.png" alt="MineKhan" border="0"></h1>
+</div>
+
+<div class="topnav">
+  <a href="/">Home</a>
+  <a href="/maps">Maps</a>
+  <a href="/creators">Creators</a>
+  <a href="/forum" style="float:right">Add a map</a>
+  <a href="/play">Play</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card" id="map">Loading map...</div>
+  </div>
+    <div class="follow">
+      <h3>Follow Us</h3>
+      <p><a href="https://replit.com/@thingMaker">ThingMaker</a><br>
+      <a href="https://www.replit.com/@TNJS">TNJS</a><br> <br> </p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h5>All Rights Reserved</h5>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(location.search)
+
+  fetch("/server/map/"+urlParams.get("map")).then(r => r.json()).then(map => {
+    var html = ""
+    if(map){
+      html += "<div class='card'>"
+      html += "<a><h2>Map: "+map.name+"</h2></a>"
+      if(map.user) html += "By "+map.user
+      if(map.description) html += "<p>"+map.description+"</p>"
+      html += "Code: <input value='"+map.code+"'>"
+      html += "</div>"
+    }else html = "Map not found"
+    document.querySelector("#map").innerHTML = html
+  })
+</script>
+</body>
+</html>

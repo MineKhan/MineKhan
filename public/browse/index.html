@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+      <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MineKhan&nbsp|&nbspMaps</title>
+     <link rel="shortcut icon" href="/play/favicon.ico">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+<body>
+
+	<div class="header">
+		<h1><img src="https://data.thingmaker.repl.co/images/minekhan.png" alt="MineKhan" border="0"></h1>
+</div>
+
+<div class="topnav">
+  <a href="/">Home</a>
+  <a href="/creators">Creators</a>
+  <a href="/forum" style="float:right">Add a map</a>
+  <a href="/play">Play</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn" id="maps">
+    <div class="card">
+      Loading the maps..
+    </div>
+  </div>
+   
+  </div>
+</div>
+
+<div class="footer">
+  <h5>&copy 2021 thingMaker and TNJS all rights reserved</h5>
+</div>
+
+<script>
+  fetch("/server/maps").then(r => r.json()).then(maps => {
+    var html = ""
+    for(var i in maps){
+      html += "<div class='card'>"
+      html += "<a href='/maps/map/index.html?map="+maps[i].name+"'><h2>Map: "+maps[i].name+"</h2></a>"
+      if(maps[i].user) html += "By "+maps[i].user
+      if(maps[i].description) html += "<p>"+maps[i].description+"</p>"
+      html += "</div>"
+    }
+    document.querySelector("#maps").innerHTML = html
+  })
+</script>
+</body>
+</html>
