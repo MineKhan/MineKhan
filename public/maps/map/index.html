@@ -5,8 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>MineKhan&nbsp|&nbspMaps</title>
-     <link rel="shortcut icon" href="/play/favicon.ico">
+    <link rel="shortcut icon" href="/play/favicon.ico">
     <link href="/maps/style.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/common.css" rel="stylesheet" type="text/css" />
+
+    <style>
+      
+    </style>
   </head>
 <body>
 
@@ -28,7 +33,7 @@
   </div>
     <div class="follow">
       <h3>Follow Us</h3>
-      <p><a href="https://replit.com/@thingMaker">ThingMaker</a><br>
+      <p><a href="https://replit.com/@thingMaker">thingMaker</a><br>
       <a href="https://www.replit.com/@TNJS">TNJS</a><br> <br> </p>
     </div>
   </div>
@@ -41,6 +46,8 @@
 <script>
   const urlParams = new URLSearchParams(location.search)
 
+  var download
+
   fetch("/server/map/"+urlParams.get("map")).then(r => r.json()).then(map => {
     var html = ""
     if(map){
@@ -49,6 +56,15 @@
       if(map.user) html += "By "+map.user
       if(map.description) html += "<p>"+map.description+"</p>"
       html += "Code: <input value='"+map.code+"'>"
+      if(map.file){
+        html += "<br><br><button onclick='download()'>Download the map</button>"
+        download = function(){
+          var a = document.createElement("a")
+          a.href = "data:text/plain,"+map.file
+          a.download = map.name+".minekhan"
+          a.click()
+        }
+      }
       html += "</div>"
     }else location.href = "/maps/map/ /";
     document.querySelector("#map").innerHTML = html

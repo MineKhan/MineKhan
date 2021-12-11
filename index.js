@@ -2,6 +2,12 @@
   res.status(404).sendFile(__dirname + "/404.html");
 }).listen(8080);*/
 
+/*
+Functions:
+clearLog(); It clears the log.
+deleteMap(name); It deletes a map.
+*/
+
 const express = require('express');
 const app = express();
 var cookieParser = require('cookie-parser');
@@ -42,6 +48,11 @@ db.get("log").then(r => {
   })
   log = r
 }).catch(() => {})
+
+async function deleteMap(name){
+  await db.delete("map:"+name)
+  Log("Map called "+name+" has been deleted.")
+}
 
 function getPostData(req){
   return new Promise(function(resolve){
@@ -84,15 +95,16 @@ router.post("/server/map", async function(req, res){
   if(!req.body.name){
     return res.json({message:"It needs a name."})
   }
-  if(!req.body.code){
-    return res.json({message:"It needs a code."})
+  var codeOrFile = (req.body.code ? 1 : 0) + (req.body.file ? 1 : 0)
+  if(codeOrFile !== 1){
+    return res.json({message:codeOrFile === 0 ? "It needs a code or a file." : "It can only have a code or a file."})
   }
   var map = await db.get("map:"+req.body.name)
   if(map){
     return res.json({message:"That name is already taken."})
   }
-  if(req.body.name.includes("/")){
-    return res.json({message:"The name can't have slashes."})
+  if(req.body.name.match(/[^a-zA-Z0-9\-_]/)){
+    return res.json({message:"Name can only contain: A-Z, a-z, 0-9, - and _"})
   }
   map = {
     name: req.body.name,
@@ -100,7 +112,8 @@ router.post("/server/map", async function(req, res){
     description: req.body.description || null,
     code: req.body.code,
     category: req.body.category || null,
-    created: Date.now()
+    created: Date.now(),
+    file: req.body.file || null
   }
   await db.set("map:"+req.body.name, map).then(function(){
     res.send({success:true})

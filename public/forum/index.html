@@ -12,6 +12,8 @@
     background-image: url(/assets/bg2.jpg);
     background-size: cover;
   }
+  .uploadbtn{
+  }
   .box{
     position: absolute;
     top: 50%;
@@ -95,7 +97,7 @@
       <label for="category">Category</label>
     </div>
     <div class="input-box">
-      <input type="text" name="name" id="name" autocomplete="off" required>
+      <input oninput="this.value = this.value.replaceAll(' ', '_')" type="text" name="name" id="name" autocomplete="off" required>
       <label for="name">Name of map</label>
     </div>
     <div class="input-box">
@@ -105,6 +107,10 @@
     <div class="input-box">
       <input type="text" name="code" autocomplete="off" id="code" required>
       <label for="code">World code</label>
+    </div>
+    <div class="input-box">
+      <input class="uploadbtn" type="file" accept=".minekhan" name="file" id="file">
+      <label for="code">Upload the world*</label>
     </div>
     <center><input type="button" value="Save" onclick="var me = this; this.value = 'Saving...'; this.disabled = true; save(function(){me.value = 'Save'; me.disabled = false})"></center>
     <br>
@@ -120,13 +126,27 @@
     var mapName = document.querySelector("#name")
     var description = document.querySelector("#description")
     var code = document.querySelector("#code")
+    var file = document.querySelector("#file")
+
+    var fr = new FileReader()
+    var fileData = null
+    file.onchange = function(){
+      fr.onload = function(){
+        fileData = fr.result
+      }
+      fr.onerror = function(e){
+        alert(e)
+      }
+      fr.readAsText(this.files[0])
+    }
     function save(onfail){
       var body = JSON.stringify({
         name:mapName.value,
         user:user.value,
         code:code.value,
         category:category.value,
-        description:description.value
+        description:description.value,
+        file: fileData
       })
       console.log(body)
       fetch("/server/map",{

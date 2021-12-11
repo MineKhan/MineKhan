@@ -1,3 +1,18 @@
 * {
   box-sizing:border-box;
 }
+
+button {
+	display: inline-block;
+	padding: 10px 30px;
+	background: #88f;
+	color: black;
+	border-radius: 5px;
+	border: solid black 1px;
+  cursor: pointer;
+  transition:ease 0.5s;
+}
+
+button:hover {
+	transform: scale(0.95);
+}
